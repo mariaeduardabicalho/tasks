@@ -19,7 +19,7 @@ def show_tasks(request):
 	task= Task.objects.all()
 	# serializer_class = TaskSerializer
 	jsontask = serializers.serialize("json", task)
-	return HttpResponse(jsontask.data)
+	return HttpResponse(jsontask,content_type="application/json")
 
 from django.shortcuts import render 
 
