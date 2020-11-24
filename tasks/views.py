@@ -22,10 +22,10 @@ def index(request):
 		data = JSONParser().parse(request)
 		serializer = TaskSerializer(data=data)
 
-	if serializer.is_valid():
-		serializer.save()
-		return HttpResponse(serializer.data, status=201)
-	return HttpResponse(serializer.errors, status=400
+		if serializer.is_valid():
+			serializer.save()
+			return HttpResponse(serializer.data, status=201)
+		return HttpResponse(serializer.errors, status=400)
 
 	else:
 		return HttpResponse("nada")
