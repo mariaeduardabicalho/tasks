@@ -28,7 +28,7 @@ def index(request):
 		# 	return HttpResponse(serializer.data, status=201)
 		# return HttpResponse(serializer.errors, status=400)
 		# received_json_data=json.loads(request.POST['data'])
-        received_json_data=json.loads(request.body)
+		received_json_data=json.loads(request.body)
 		
 		return HttpResponse(received_json_data, status=201)
 
