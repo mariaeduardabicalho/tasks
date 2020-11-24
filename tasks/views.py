@@ -27,9 +27,10 @@ def index(request):
 		# 	serializer.save()
 		# 	return HttpResponse(serializer.data, status=201)
 		# return HttpResponse(serializer.errors, status=400)
-		received_json_data=json.loads(request.POST['data'])
-            #received_json_data=json.loads(request.body)
-		return HttpResponse(str(received_json_data), status=201)
+		# received_json_data=json.loads(request.POST['data'])
+        received_json_data=json.loads(request.body)
+		
+		return HttpResponse(received_json_data, status=201)
 
 		
 
@@ -37,22 +38,22 @@ def index(request):
 
 
 
-def show_tasks(request): 
-	task= Task.objects.all()
-	# serializer_class = TaskSerializer
-	jsontask = serializers.serialize("json", task)
-	return HttpResponse(jsontask,content_type="application/json")
+# def show_tasks(request): 
+# 	task= Task.objects.all()
+# 	# serializer_class = TaskSerializer
+# 	jsontask = serializers.serialize("json", task)
+# 	return HttpResponse(jsontask,content_type="application/json")
 
-from django.shortcuts import render 
+# from django.shortcuts import render 
 
-# Create your views here. 
-def create_tasks(request): 
-	data = JSONParser().parse(request)
-	serializer = TaskSerializer(data=data)
+# # Create your views here. 
+# def create_tasks(request): 
+# 	data = JSONParser().parse(request)
+# 	serializer = TaskSerializer(data=data)
 
-	if serializer.is_valid():
-		serializer.save()
-		return HttpResponse(serializer.data, status=201)
-	return HttpResponse(serializer.errors, status=400)
+# 	if serializer.is_valid():
+# 		serializer.save()
+# 		return HttpResponse(serializer.data, status=201)
+# 	return HttpResponse(serializer.errors, status=400)
 
 
