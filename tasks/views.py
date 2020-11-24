@@ -12,7 +12,27 @@ from rest_framework.parsers import JSONParser
 
 
 def index(request):
-	return HttpResponse("Hello, world. You're at the tasks index.")
+	if request.method  == 'GET':
+		task= Task.objects.all()
+		# serializer_class = TaskSerializer
+		jsontask = serializers.serialize("json", task)
+		return HttpResponse(jsontask,content_type="application/json")
+
+	if request.method  == 'POST':
+		data = JSONParser().parse(request)
+		serializer = TaskSerializer(data=data)
+
+	if serializer.is_valid():
+		serializer.save()
+		return HttpResponse(serializer.data, status=201)
+	return HttpResponse(serializer.errors, status=400
+
+	else:
+		return HttpResponse("nada")
+		
+
+
+
 
 
 def show_tasks(request): 
