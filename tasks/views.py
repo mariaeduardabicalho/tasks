@@ -20,17 +20,17 @@ def index(request):
 		return HttpResponse(jsontask,content_type="application/json")
 
 	elif request.method  == 'POST':
-		# data = JSONParser().parse(request)
-		# serializer = TaskSerializer(data=data)
+		data = JSONParser().parse(request)
+		serializer = TaskSerializer(data=data)
 
-		# if serializer.is_valid():
-		# 	serializer.save()
-		# 	return HttpResponse(serializer.data, status=201)
-		# return HttpResponse(serializer.errors, status=400)
-		# received_json_data=json.loads(request.POST['data'])
-		received_json_data=json.loads(request.body)
+		if serializer.is_valid():
+			serializer.save()
+			return HttpResponse(serializer.data, status=201)
+		return HttpResponse(serializer.errors, status=400)
 		
-		return HttpResponse(received_json_data, status=201)
+		# received_json_data=json.loads(request.body)
+		
+		# return HttpResponse(received_json_data, status=201)
 
 		
 
