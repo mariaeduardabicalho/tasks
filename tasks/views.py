@@ -6,6 +6,7 @@ from .serializers import TaskSerializer
 from django.core import serializers
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
+import json
 
 
 # Create your views here.
@@ -18,17 +19,18 @@ def index(request):
 		jsontask = serializers.serialize("json", task)
 		return HttpResponse(jsontask,content_type="application/json")
 
-	if request.method  == 'POST':
-		data = JSONParser().parse(request)
-		serializer = TaskSerializer(data=data)
+	elif request.method  == 'POST':
+		# data = JSONParser().parse(request)
+		# serializer = TaskSerializer(data=data)
 
-		if serializer.is_valid():
-			serializer.save()
-			return HttpResponse(serializer.data, status=201)
-		return HttpResponse(serializer.errors, status=400)
+		# if serializer.is_valid():
+		# 	serializer.save()
+		# 	return HttpResponse(serializer.data, status=201)
+		# return HttpResponse(serializer.errors, status=400)
+		received_json_data=json.loads(request.POST['data'])
+            #received_json_data=json.loads(request.body)
+		return HttpResponse(str(received_json_data), status=201)
 
-	else:
-		return HttpResponse("nada")
 		
 
 
