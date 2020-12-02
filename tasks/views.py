@@ -20,7 +20,12 @@ def index(request):
 		return HttpResponse(jsontask,content_type="application/json")
 
 	elif request.method  == 'POST':
-		# data = JSONParser().parse(request)
+		data = JSONParser().parse(request)
+		serializer = TaskSerializer(data= data)
+		if serializer.is_valid():
+			serializer.save()
+			return HttpResponse(serializer.data, status=201)
+		return HttpResponse(serializer.errors, status=400)		
 		# serializer = TaskSerializer(data=data)
 
 		# if serializer.is_valid():
